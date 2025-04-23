@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:scabies_detection_app/auth/auth_service.dart';
+import 'package:scabies_detection_app/auth/provider/auth_service.dart';
+import 'package:scabies_detection_app/utils/navigation_helper.dart';
+import 'package:scabies_detection_app/widget/bottom_navbar.dart';
 
 class ProfilPage extends StatefulWidget {
   const ProfilPage({super.key});
@@ -9,16 +11,24 @@ class ProfilPage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilPage> {
-
   final authService = AuthService();
+  int _selectedIndex = 2;
 
   void logout() async {
     await authService.signOut();
   }
 
+  void _onItemTapped(int index) {
+    if (index == _selectedIndex) return;
+
+    // Navigasi ke halaman lain
+    if (index == 0) {
+      navigatedWithOutTransition(context, '/home');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-
     final currentEmail = authService.getCurrentUserEmail();
 
     return Scaffold(
@@ -32,6 +42,8 @@ class _ProfilPageState extends State<ProfilPage> {
             },
           ),
         ],
+        backgroundColor: Color.fromARGB(255, 55, 58, 255), // warna latar belakang
+        foregroundColor: Colors.white,
       ),
       body: Center(
         child: Column(
@@ -48,6 +60,10 @@ class _ProfilPageState extends State<ProfilPage> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavbar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
       ),
     );
   }

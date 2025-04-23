@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:scabies_detection_app/auth/auth_service.dart';
-import 'package:scabies_detection_app/pages/register_page.dart';
+import 'package:scabies_detection_app/auth/provider/auth_service.dart';
+import 'package:scabies_detection_app/auth/view/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

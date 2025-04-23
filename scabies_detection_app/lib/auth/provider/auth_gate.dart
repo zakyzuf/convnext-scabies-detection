@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:scabies_detection_app/pages/login_page.dart';
-import 'package:scabies_detection_app/pages/profile_page.dart';
+import 'package:scabies_detection_app/auth/view/login_page.dart';
+// import 'package:scabies_detection_app/dashboard/view/dashboard_page.dart';
+import 'package:scabies_detection_app/home/view/home_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthGate extends StatelessWidget {
@@ -22,7 +23,7 @@ class AuthGate extends StatelessWidget {
           final session = snapshot.hasData ? snapshot.data!.session : null;
 
           if (session != null) {
-            return const ProfilPage();
+            return const HomePage();
           } else {
             return const LoginPage();
           }

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:scabies_detection_app/auth/auth_gate.dart';
+import 'package:provider/provider.dart';
+import 'package:scabies_detection_app/auth/provider/auth_gate.dart';
+import 'package:scabies_detection_app/auth/view/profile_page.dart';
+import 'package:scabies_detection_app/history/provider/history_provider.dart';
+import 'package:scabies_detection_app/home/view/home_page.dart';
+import 'package:scabies_detection_app/scanning/provider/scanner_provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -9,7 +14,13 @@ void main() async {
     url: "https://wqtlruwcuedkayjlqvgw.supabase.co",
   );
 
-  runApp(const MainApp());
+  runApp(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => HistoryProvider()),
+        ChangeNotifierProvider(create: (_) => ScannerProvider()),
+      ],
+      child: const MainApp(),
+    ),);
 }
 
 class MainApp extends StatelessWidget {
@@ -17,8 +28,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: AuthGate(),
+    return MaterialApp(
+      theme: ThemeData(
+        scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255), // <-- ganti warna background global di sini
+        primarySwatch: Colors.blue,
+      ),
+      home: const AuthGate(),
+      routes: {
+        '/home': (context) => const HomePage(),
+        '/profile': (context) => const ProfilPage(),
+      },
     );
   }
 }
+

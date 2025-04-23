@@ -7,8 +7,16 @@ environment:
   sdk: ^3.5.4
 
 dependencies:
+  dio: ^5.8.0+1
   flutter:
     sdk: flutter
+  flutter_image_compress: ^2.4.0
+  iconly: ^1.0.1
+  image: ^4.5.4
+  image_cropper: ^9.1.0
+  image_picker: ^1.1.2
+  intl: ^0.20.2
+  provider: ^6.1.4
   supabase_flutter: ^2.8.4
 
 dev_dependencies:
