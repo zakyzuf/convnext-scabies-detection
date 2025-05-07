@@ -92,7 +92,7 @@ class ScannerProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<String> checkScabies(
+  Future<ScanningResponseModel> checkScabies(
     BuildContext context,
     File fileUpload,
   ) async {
@@ -103,12 +103,18 @@ class ScannerProvider with ChangeNotifier {
       ScanningResponseModel result =
           await scanningService.checkScabiesAI(fileAfterCompress.path);
 
-      // ScanningResponseModel result =
-      //     await scanningService.checkScabiesAI(fileUpload.path);
+      // String formattedConfidence;
+      // double resConfidence = (result.confidence * 100);
+      // if (resConfidence > 99.99) {
+      //   formattedConfidence = "99.99";
+      // } else {
+      //   formattedConfidence = resConfidence.toStringAsFixed(2);
+      // }
 
-      return result.predictedLabel;
+      return result;
     } catch (e) {
-      return e.toString();
+      // Bisa throw exception atau return default error
+      throw Exception('Failed to check scabies: $e');
     }
   }
 

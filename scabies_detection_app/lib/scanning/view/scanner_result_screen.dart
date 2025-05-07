@@ -6,11 +6,13 @@ import 'package:scabies_detection_app/core/constants/colors.dart';
 class ScannerResultScreen extends StatelessWidget {
   final String scabiesResult;
   final File file;
+  final String confidence;
 
   const ScannerResultScreen({
     super.key,
     required this.scabiesResult,
     required this.file,
+    required this.confidence,
   });
 
   @override
@@ -126,6 +128,12 @@ class ScannerResultScreen extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Confidence Score: $confidence%',
+                  )
                 ],
               ),
             )

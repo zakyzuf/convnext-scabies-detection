@@ -123,22 +123,36 @@ Future<void> showCameraModal(BuildContext context) async {
                                             await scannerProvider.addImage(
                                               context,
                                               fileUpload,
-                                              scabiesResult,
+                                              scabiesResult.predictedLabel,
                                             );
                                             if (context.mounted) {
                                               // Close modal first
                                               Navigator.pop(context);
-                                              
+
                                               // Matikan Crop Image
                                               scannerProvider.cropImage();
+
+                                              double resConfidence =
+                                                  scabiesResult.confidence *
+                                                      100;
+                                              String formattedConfidence;
+
+                                              if (resConfidence > 99.99) {
+                                                formattedConfidence = "99.99";
+                                              } else {
+                                                formattedConfidence =
+                                                    resConfidence
+                                                        .toStringAsFixed(2);
+                                              }
 
                                               await Navigator.of(context).push(
                                                 CupertinoPageRoute(
                                                   builder: (context) =>
                                                       ScannerResultScreen(
-                                                    scabiesResult:
-                                                        scabiesResult,
+                                                    scabiesResult: scabiesResult
+                                                        .predictedLabel,
                                                     file: fileUpload,
+                                                    confidence: formattedConfidence,
                                                   ),
                                                 ),
                                               );
@@ -250,24 +264,37 @@ Future<void> showCameraModal(BuildContext context) async {
                                             await scannerProvider.addImage(
                                               context,
                                               fileUpload,
-                                              scabiesResult,
+                                              scabiesResult.predictedLabel,
                                             );
 
                                             if (context.mounted) {
                                               // Close the modal
                                               Navigator.pop(context);
-                                              
+
                                               // Matikan Crop Image
                                               scannerProvider.cropImage();
 
+                                              double resConfidence =
+                                                  scabiesResult.confidence *
+                                                      100;
+                                              String formattedConfidence;
+
+                                              if (resConfidence > 99.99) {
+                                                formattedConfidence = "99.99";
+                                              } else {
+                                                formattedConfidence =
+                                                    resConfidence
+                                                        .toStringAsFixed(2);
+                                              }
                                               // Navigate to results screen
                                               await Navigator.of(context).push(
                                                 CupertinoPageRoute(
                                                   builder: (context) =>
                                                       ScannerResultScreen(
-                                                    scabiesResult:
-                                                        scabiesResult,
+                                                    scabiesResult: scabiesResult
+                                                        .predictedLabel,
                                                     file: fileUpload,
+                                                    confidence: formattedConfidence,
                                                   ),
                                                 ),
                                               );
